@@ -9,7 +9,7 @@ class papertrail (
   $extra_logs             = [],
   $template               = 'papertrail/rsyslog.conf.erb',
 ) {
-  file { 'rsyslog config':
+  file { 'rsyslog papertrail config':
     ensure   => file,
     content  => template($template),
     path     => '/etc/rsyslog.d/99-papertrail.conf',
@@ -19,6 +19,10 @@ class papertrail (
   package { 'rsyslog-gnutls':
     ensure => installed,
     notify => Service['rsyslog'],
+  }
+
+  package { 'libssl-dev':
+    ensure => present,
   }
 
   service { 'rsyslog':
@@ -32,28 +36,10 @@ class papertrail (
     notify => Service['rsyslog'],
   }
 
-  package { 'gcc':
-    ensure => present,
-  }
-
-  package { 'rubygems':
-    ensure => present,
-  }
-
-  package { 'libssl-dev':
-    ensure => present,
-  }
-
-  package { 'ruby-dev':
-    ensure => present,
-  }
-
   package { 'remote_syslog':
     ensure   => present,
     provider => 'gem',
     require  => [
-      Package['rubygems'],
-      Package['gcc'],
       Package['libssl-dev'],
     ],
   }
