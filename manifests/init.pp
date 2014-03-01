@@ -8,6 +8,8 @@ class papertrail (
   $papertrail_certificate = 'puppet:///modules/papertrail/papertrail.crt',
   $extra_logs             = [],
   $template               = 'papertrail/rsyslog.conf.erb',
+  $rate_limit_interval    = 5,
+  $rate_limit_burst       = 200
 ) {
   file { 'rsyslog papertrail config':
     ensure   => file,

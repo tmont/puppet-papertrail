@@ -4,3 +4,6 @@ $ActionSendStreamDriverMode 1
 $ActionSendStreamDriverAuthMode x509/name
 
 *.*	@@<%= @log_host %>:<%= @log_port %>
+
+$SystemLogRateLimitInterval <%= @rate_limit_interval %>
+$SystemLogRateLimitBurst <%= @rate_limit_burst %>
